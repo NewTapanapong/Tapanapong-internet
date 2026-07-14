@@ -1,4 +1,5 @@
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+import { useEffect, useState } from "react";
 import {
   FlatList,
   Image,
@@ -10,29 +11,13 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
- const PRODUCTS = [
-  {
-    id: "1",
-    name: "กระเป๋าเดินทาง กระเป๋าเดินทา20 นิ้ว ล้อสากลเงียบ",
-    brand: "American Tourister",
-    price: "฿2,990",
-    image: "https://down-th.img.susercontent.com/file/sg-11134201-7rcc5-lrgubf5o9v9c28",
-  },
-  {
-    id: "2",
-    name: "กระเป๋าเดินทางแบบมีซิปขนาด 20 นิ้ว กระเป๋าขึ้นเครื่องสำหรับเดินทาง",
-    brand: "Samsonite",
-    price: "฿4,590",
-    image: "https://img.lazcdn.com/g/p/df6a38aac07af7aa3e4ee7f70e8f9db6.jpg_720x720q80.jpg",
-  },
-  {
-    id: "3",
-    name: "กระเป๋าเดินทางและอุปกรณ์เดินทาง กระเป๋าเดินทางขนาด 20/24/28 นิ้ว",
-    brand: "Swiss Gear",
-    price: "฿5,290",
-    image: "https://img.lazcdn.com/g/p/12571c289614179e15d61470d3cb4496.jpg_720x720q80.jpg",
-  },
-];
+type Product = {
+  id: string;
+  name: string;
+  brand: string;
+  price: string;
+  image: string;
+};
 const COLORS = { 
   primary: "#db10db", 
   primaryDark: "#db10db", 
@@ -42,7 +27,17 @@ const COLORS = {
   text: "#0F172A", 
   textSecondary: "#64748B", 
 }; 
-export default function HomeScreen() { 
+export default function HomeScreen() {
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    fetch(
+      "https://raw.githubusercontent.com/USERNAME/REPOSITORY/main/products.json"
+    )
+      .then((response) => response.json())
+      .then((data) => setProducts(data))
+      .catch((error) => console.log("Error:", error));
+  }, []); 
   return ( 
     <SafeAreaView style={styles.container}> 
       <StatusBar 
