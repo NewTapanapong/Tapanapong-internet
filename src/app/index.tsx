@@ -32,7 +32,7 @@ export default function HomeScreen() {
 
   useEffect(() => {
     fetch(
-      "https://raw.githubusercontent.com/USERNAME/REPOSITORY/main/products.json"
+      "https://raw.githubusercontent.com/NewTapanapong/Tapanapong-internet/main/src/app/products.json"
     )
       .then((response) => response.json())
       .then((data) => setProducts(data))
@@ -91,7 +91,7 @@ Product</Text>
  
       {/* Product Area */}  
       <FlatList
-  data={PRODUCTS}
+  data={products}
   keyExtractor={(item) => item.id}
   showsVerticalScrollIndicator={false}
   contentContainerStyle={{ paddingBottom: 90 }}
